@@ -1,0 +1,23 @@
+{
+  "name": "maxmind-self-api",
+  "version": "1.0.0",
+  "description": "maxmind-self-api",
+  "main": "index.js",
+  "scripts": {
+    "test": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kwabang/maxmind-self-api.git"
+  },
+  "author": "Kwabang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kwabang/maxmind-self-api/issues"
+  },
+  "homepage": "https://github.com/Kwabang/maxmind-self-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "maxmind": "^4.3.1"
+  }
+}
