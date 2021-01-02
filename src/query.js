@@ -62,31 +62,18 @@ const geolocation = (query_ip) => {
 			reject("Maxmind doesn't have any information for that IP.")
 			return
 		}
-		let response
-		if (city_data.city) {
-			response = {
-				"ISP": asn_data.autonomous_system_organization,
-				"registered_country_code": city_data.registered_country.iso_code,
-				"registered_country": city_data.registered_country.names.en,
-				"city": city_data.city.names.en,
-				"country_code": city_data.country.iso_code,
-				"country": city_data.country.names.en,
-				"continent_code": city_data.continent.code,
-				"continent": city_data.continent.names.en,
-				"location": city_data.location
-			}
-		} else {
-			response = {
-				"ISP": asn_data.autonomous_system_organization,
-				"registered_country_code": city_data.registered_country.iso_code,
-				"registered_country": city_data.registered_country.names.en,
-				"country_code": city_data.country.iso_code,
-				"country": city_data.country.names.en,
-				"continent_code": city_data.continent.code,
-				"continent": city_data.continent.names.en,
-				"location": city_data.location
-			}
+		let response = {
+			"ISP": asn_data.autonomous_system_organization,
+			"registered_country_code": city_data.registered_country.iso_code,
+			"registered_country": city_data.registered_country.names.en,
+			"city": null,
+			"country_code": city_data.country.iso_code,
+			"country": city_data.country.names.en,
+			"continent_code": city_data.continent.code,
+			"continent": city_data.continent.names.en,
+			"location": city_data.location
 		}
+		if (city_data.city) response.city = city_data.city.names.en
 		resolve(response)
 	})
 }
