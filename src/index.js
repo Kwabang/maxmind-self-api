@@ -16,7 +16,7 @@ app.get('/asn/:query_ip',(req,res) => {
 	query.asn(query_ip).then(data => {
 		res.status(200).json(data)
 	}).catch((err) => {
-		res.status(500).json({'error':err})
+		res.status(422).json({'error':err})
 	})
 })
 
@@ -25,7 +25,7 @@ app.get('/country/:query_ip',(req,res) => {
 	query.country(query_ip).then(data => {
 		res.status(200).json(data)
 	}).catch((err) => {
-		res.status(500).json({'error':err})
+		res.status(422).json({'error':err})
 	})
 })
 
@@ -34,17 +34,21 @@ app.get('/city/:query_ip',(req,res) => {
 	query.city(query_ip).then(data => {
 		res.status(200).json(data)
 	}).catch((err) => {
-		res.status(500).json({'error':err})
+		res.status(422).json({'error':err})
 	})
 })
 
 app.get('/geolocation/:query_ip',(req,res) => {
 	let query_ip = req.params.query_ip
-	query.geolocation(query_ip).then(data => {
-		res.status(200).json(data)
-	}).catch((err) => {
-		res.status(500).json({'error':err})
-	})
+	if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(query_ip)) {
+		query.geolocation(query_ip).then(data => {
+			res.status(200).json(data)
+		}).catch((err) => {
+			res.status(422).json({'error':err})
+		})
+	} else {
+		res.status(422).json({'error':'Not a valid IP.'})
+	}
 })
 
 app.listen(3000, () => {
