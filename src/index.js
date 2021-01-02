@@ -51,6 +51,10 @@ app.get('/geolocation/:query_ip',(req,res) => {
 	}
 })
 
+app.get('*', (req, res) => {
+  res.status(404).json({'error':'Not Found'})
+})
+
 app.listen(3000, () => {
 	console.log("API started")
 })
