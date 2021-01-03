@@ -52,3 +52,6 @@ GET /geolocation/<Query_IP>
 
 ### How to download database
 https://dev.maxmind.com/geoip/geoip2/geolite2/#Access
+
+### Caching
+This logic cleans the query cache at 00:00 every day.
