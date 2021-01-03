@@ -34,7 +34,7 @@ app.get('/asn/:query_ip', (req, res) => {
 	let query_ip = req.params.query_ip
 	if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(query_ip)) {
 		let asn_cache = cache.asn
-		if (asn_cache.asn[query_ip]) {
+		if (asn_cache[query_ip]) {
 			res.status(200).json(asn_cache[query_ip])
 		} else {
 			query.asn(query_ip).then(data => {
