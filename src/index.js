@@ -138,7 +138,7 @@ app.get("/geolocation/:query_ip", (req, res) => {
 });
 
 app.get("/isp", (req, res) => {
-  let query_ip = req.params.query_ip;
+  let query_ip = req.headers["x-forwarded-for"];
   if (net.isIP(query_ip) === 4 || net.isIP(query_ip) === 6) {
     let asn_cache = cache.asn;
     if (asn_cache[query_ip]) {
