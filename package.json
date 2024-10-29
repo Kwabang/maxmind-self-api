@@ -4,7 +4,7 @@
   "description": "maxmind-self-api",
   "main": "index.js",
   "scripts": {
-    "test": "node src/index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
