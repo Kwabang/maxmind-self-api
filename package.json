@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Kwabang/maxmind-self-api#readme",
   "dependencies": {
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "maxmind": "^4.3.18",
     "node-cron": "^3.0.3"
   },
