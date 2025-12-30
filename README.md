@@ -1,69 +1,105 @@
-# Maxmind-Self-API <img src="https://img.shields.io/static/v1?label=code&message=Node.js&color=green" alt="">
+# MaxMind GeoIP API <img src="https://img.shields.io/static/v1?label=code&message=NestJS&color=green" alt="">
 
-## Query
+NestJS 기반 MaxMind GeoIP API입니다. GeoLite2 데이터베이스를 **30분마다 자동으로 다운로드**합니다.
 
-- [ASN](#ASN)
-- [Country](#Country)
-- [City](#City)
-- [Geolocation (ASN,Country,City integrated query)](#Geolocation)
+## 설치
 
-### ASN
-
-### Requests
-
-```http
-GET /asn/<Query_IP>
+```bash
+npm install
 ```
 
-| Parameter  | Type     | Description  |
-| :--------- | :------- | :----------- |
-| `Query_IP` | `string` | IP for query |
+## 실행
 
-### Country
+```bash
+# 개발 모드 (watch)
+npm run start:dev
 
-### Requests
-
-```http
-GET /country/<Query_IP>
+# 프로덕션
+npm run build
+npm run start:prod
 ```
 
-| Parameter  | Type     | Description  |
-| :--------- | :------- | :----------- |
-| `Query_IP` | `string` | IP for query |
+## API 엔드포인트
 
-### City
-
-### Requests
+### ASN 조회
 
 ```http
-GET /city/<Query_IP>
+GET /asn/:ip
 ```
 
-| Parameter  | Type     | Description  |
-| :--------- | :------- | :----------- |
-| `Query_IP` | `string` | IP for query |
+| Parameter | Type     | Description  |
+| :-------- | :------- | :----------- |
+| `ip`      | `string` | 조회할 IP 주소 |
 
-### Geolocation
-
-### Requests
+### Country 조회
 
 ```http
-GET /geolocation/<Query_IP>
+GET /country/:ip
 ```
 
-| Parameter  | Type     | Description  |
-| :--------- | :------- | :----------- |
-| `Query_IP` | `string` | IP for query |
+| Parameter | Type     | Description  |
+| :-------- | :------- | :----------- |
+| `ip`      | `string` | 조회할 IP 주소 |
 
-### Status Codes
+### City 조회
+
+```http
+GET /city/:ip
+```
+
+| Parameter | Type     | Description  |
+| :-------- | :------- | :----------- |
+| `ip`      | `string` | 조회할 IP 주소 |
+
+### Geolocation 조회 (통합)
+
+```http
+GET /geolocation/:ip
+```
+
+| Parameter | Type     | Description  |
+| :-------- | :------- | :----------- |
+| `ip`      | `string` | 조회할 IP 주소 |
+
+응답 예시:
+```json
+{
+  "ISP": "GOOGLE",
+  "registered_country_code": "US",
+  "registered_country": "United States",
+  "country_code": "US",
+  "country": "United States",
+  "continent_code": "NA",
+  "continent": "North America",
+  "location": {
+    "accuracy_radius": 1000,
+    "latitude": 37.751,
+    "longitude": -97.822,
+    "time_zone": "America/Chicago"
+  }
+}
+```
+
+### ISP (x-forwarded-for 헤더 사용)
+
+```http
+GET /isp
+```
+
+## Status Codes
 
 | Status Code | Description                         |
 | :---------- | :---------------------------------- |
-| 200         | information exists in Maxmind DB    |
-| 400         | Invalid IP                          |
-| 404         | Non-existent path                   |
-| 422         | No information exists in Maxmind DB |
+| 200         | 정보 조회 성공                       |
+| 400         | 유효하지 않은 IP                     |
+| 422         | MaxMind DB에 정보 없음               |
 
-### How to download database
+## 데이터베이스 자동 업데이트
 
-https://dev.maxmind.com/geoip/geoip2/geolite2/#Access
+서버 시작 시 및 **30분마다** 다음 데이터베이스를 자동으로 다운로드합니다:
+
+- GeoLite2-ASN.mmdb
+- GeoLite2-City.mmdb
+- GeoLite2-Country.mmdb
+
+데이터베이스 출처: [P3TERX/GeoLite.mmdb](https://github.com/P3TERX/GeoLite.mmdb)
